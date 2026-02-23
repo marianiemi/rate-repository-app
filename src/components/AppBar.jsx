@@ -24,9 +24,6 @@ const AppBar = () => {
       >
         <AppBarTab label="Repositories" to="/" />
         <AppBarTab label="Sign in" to="/signin" />
-        <AppBarTab label="Testisivu" to="/testisivu" />
-        <AppBarTab label="Testisivukakkonen" to="/testisivukakkonen" />
-        <AppBarTab label="Testisivukolmonen" to="/testisivukolmonen" />
       </ScrollView>
     </View>
   );

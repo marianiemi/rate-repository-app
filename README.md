@@ -18,7 +18,13 @@
 
 ### Tehtävät 10.6-10.7
 
-    - React Router Native (NativeRouter) käyttöön
-    - Reitit: / (RepositoryList) ja /signin (SignIn)
+    - Kirjautumisnäkymä SignIn-komponentilla
     - Navigointi AppBarin Link-komponenteilla
-    - Vaakasuuntainen scrollaus app barissa
+    - Vaakasuuntainen scrollaus app barissa ScrollView-komponentilla
+
+### Tehtävät 10.8–10.9
+
+    - Sign-in-kirjautumislomake + hallinta useFormik
+    - Validointischema Yupilla
+    - Pakolliset kentät username / password
+    - Virheilmoitus punaisella
