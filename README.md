@@ -15,3 +15,10 @@
     - Flexbox-layout (row / space-around / alignItems)
     - Avatar-kuva + tilastojen muotoilu (≥ 1000 → x.xk)
     - UI viimeistely (taustavärit, kielitagit, typografia)
+
+### Tehtävät 10.6-10.7
+
+    - React Router Native (NativeRouter) käyttöön
+    - Reitit: / (RepositoryList) ja /signin (SignIn)
+    - Navigointi AppBarin Link-komponenteilla
+    - Vaakasuuntainen scrollaus app barissa
