@@ -28,3 +28,10 @@
     - Validointischema Yupilla
     - Pakolliset kentät username / password
     - Virheilmoitus punaisella
+
+### Tehtävä 10.10
+
+    - Platform-specific font (Platform.select)
+    - Android: Roboto
+    - iOS: Arial
+    - Default: System
