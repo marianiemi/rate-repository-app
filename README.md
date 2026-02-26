@@ -31,7 +31,15 @@
 
 ### Tehtävä 10.10
 
-    - Platform-specific font (Platform.select)
+    - Fontti laitteen mukaan (Platform.select)
     - Android: Roboto
     - iOS: Arial
     - Default: System
+
+### Tehtävä 10.11
+
+    - Data haetaan GraphQL:llä backendistä
+    - Apollo Sandbox Query toimii
+    - useQuery käytössä hookissa
+    - välimuisti+päivitys cache-and-network: fethPolicy
+    - UI ennallaan
