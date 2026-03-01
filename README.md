@@ -43,3 +43,9 @@
     - useQuery käytössä hookissa
     - välimuisti+päivitys cache-and-network: fethPolicy
     - UI ennallaan
+
+### Tehtävä 10.12
+
+    - Apollo Server URI siirretty ympäristömuuttujaan (.env)
+    - Expo extra-kenttä ympäristömuuttujien välittämiseen
+    - URI luetaan Constants.expoConfig.extra-polusta
