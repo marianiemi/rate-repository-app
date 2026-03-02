@@ -49,3 +49,11 @@
     - Apollo Server URI siirretty ympäristömuuttujaan (.env)
     - Expo extra-kenttä ympäristömuuttujien välittämiseen
     - URI luetaan Constants.expoConfig.extra-polusta
+
+### Tehtävät 10.13-10.14
+
+    - Kirjautuminen yhdistetty GraphQL API:in.
+    - `useMutation`-hook authenticate-mutaatiolle
+    - `useSignIn`-custom hook
+    - Access token onnistuneesta kirjautumisesta
+    - Access tokenin tallennuksen valmistelu: AsynStorage + get/set/remove metodit
