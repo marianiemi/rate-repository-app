@@ -57,3 +57,11 @@
     - `useSignIn`-custom hook
     - Access token onnistuneesta kirjautumisesta
     - Access tokenin tallennuksen valmistelu: AsynStorage + get/set/remove metodit
+
+### Tehtävät 10.15-10.16
+
+    - kirjautumisen jälkeen accessToken tallennetaan AsyncStorageen
+    - Apollo Client lisää tokenin Authorization-headeriin kaikkiin pyyntöihin
+    - Apollo cache tyhjennetään kirjautumisen jälkeen (resetStore)
+    - AppBar näyttää käyttäjän kirjautumistilan ME-queryn avulla
+    - Sign out poistaa tokenin tallennuksesta ja resetoi Apollo-cachen
