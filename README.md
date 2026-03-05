@@ -65,3 +65,11 @@
     - Apollo cache tyhjennetään kirjautumisen jälkeen (resetStore)
     - AppBar näyttää käyttäjän kirjautumistilan ME-queryn avulla
     - Sign out poistaa tokenin tallennuksesta ja resetoi Apollo-cachen
+
+### Tehtävät 10.17-10.18
+
+    - Jest + React Native Testing Library käyttöön
+    - RepositoryListContainer-komponentille testi, joka tarkistaa repositorion nimen, kuvauksen, kielen ja tilastot
+    - testID lisätty RepositoryItem-komponenttiin testejä varten
+    - SignInContainer erotettu omaksi testattavaksi komponentiksi
+    - Sign in -lomakkeen testi varmistaa, että username ja password välittyvät oikein onSubmit-handlerille

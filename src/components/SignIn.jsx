@@ -1,11 +1,11 @@
 import { View, TextInput, Pressable, StyleSheet } from "react-native";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useNavigate } from "react-router-native";
 
 import Text from "./Text";
 import theme from "../theme";
 import useSignIn from "../hooks/useSignIn";
-import { useNavigate } from "react-router-native";
 
 const validationSchema = yup.object().shape({
   username: yup.string().required("Username is required"),
@@ -53,12 +53,17 @@ const SignInForm = ({ onSubmit }) => {
     onSubmit,
   });
 
-  const usernameHasError = formik.touched.username && formik.errors.username;
-  const passwordHasError = formik.touched.password && formik.errors.password;
+  const usernameHasError = Boolean(
+    formik.touched.username && formik.errors.username,
+  );
+  const passwordHasError = Boolean(
+    formik.touched.password && formik.errors.password,
+  );
 
   return (
     <View style={styles.container}>
       <TextInput
+        testID="usernameField"
         style={[styles.input, usernameHasError && styles.inputError]}
         placeholder="Username"
         value={formik.values.username}
@@ -71,6 +76,7 @@ const SignInForm = ({ onSubmit }) => {
       )}
 
       <TextInput
+        testID="passwordField"
         style={[styles.input, passwordHasError && styles.inputError]}
         placeholder="Password"
         value={formik.values.password}
@@ -82,13 +88,21 @@ const SignInForm = ({ onSubmit }) => {
         <Text style={styles.errorText}>{formik.errors.password}</Text>
       )}
 
-      <Pressable style={styles.button} onPress={() => formik.handleSubmit()}>
+      <Pressable
+        testID="submitButton"
+        style={styles.button}
+        onPress={formik.handleSubmit}
+      >
         <Text fontWeight="bold" style={styles.buttonText}>
           Sign in
         </Text>
       </Pressable>
     </View>
   );
+};
+
+export const SignInContainer = ({ onSubmit }) => {
+  return <SignInForm onSubmit={onSubmit} />;
 };
 
 const SignIn = () => {
@@ -106,7 +120,7 @@ const SignIn = () => {
     }
   };
 
-  return <SignInForm onSubmit={onSubmit} />;
+  return <SignInContainer onSubmit={onSubmit} />;
 };
 
 export default SignIn;
