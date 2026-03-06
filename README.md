@@ -73,3 +73,11 @@
     - testID lisätty RepositoryItem-komponenttiin testejä varten
     - SignInContainer erotettu omaksi testattavaksi komponentiksi
     - Sign in -lomakkeen testi varmistaa, että username ja password välittyvät oikein onSubmit-handlerille
+
+### Tehtävä 10.19
+
+- lisätty yksittäisen repositorion näkymä (SingleRepository)
+- GET_REPOSITORY hakee repositorion id:n perusteella
+- useRepository-hook yksittäisen repositorion hakemiseen
+- Open in GitHub -painike
+- navigointi routeen /repository/:id

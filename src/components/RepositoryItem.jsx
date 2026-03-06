@@ -1,11 +1,14 @@
-import { View, StyleSheet, Image } from "react-native";
+import { View, Image, StyleSheet, Pressable } from "react-native";
+import * as Linking from "expo-linking";
+
 import Text from "./Text";
 import theme from "../theme";
+import formatCount from "../utils/formatCount";
 
 const styles = StyleSheet.create({
   container: {
-    padding: 15,
     backgroundColor: theme.colors.itemBackground,
+    padding: 15,
   },
   topRow: {
     flexDirection: "row",
@@ -13,76 +16,64 @@ const styles = StyleSheet.create({
   avatar: {
     width: 48,
     height: 48,
-    borderRadius: 6,
+    borderRadius: 4,
     marginRight: 15,
   },
   info: {
     flex: 1,
   },
-  fullName: {
-    marginBottom: 4,
-  },
-  description: {
-    marginBottom: 8,
-  },
-  languagePill: {
+  languageTag: {
     alignSelf: "flex-start",
     backgroundColor: theme.colors.primary,
+    color: "#ffffff",
     paddingHorizontal: 10,
     paddingVertical: 6,
     borderRadius: 4,
-  },
-  languageText: {
-    color: "#ffffff",
+    overflow: "hidden",
+    marginTop: 8,
   },
   statsRow: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginTop: 15,
+    marginTop: 20,
   },
   statItem: {
     alignItems: "center",
   },
-  statValue: {
-    marginBottom: 4,
+  button: {
+    backgroundColor: theme.colors.primary,
+    padding: 14,
+    borderRadius: 4,
+    alignItems: "center",
+    marginTop: 20,
+  },
+  buttonText: {
+    color: "#ffffff",
   },
 });
 
-const formatCount = (value) => {
-  if (value < 1000) return String(value);
-  const rounded = Math.round((value / 1000) * 10) / 10; // 1 desimaali
-  return `${rounded}k`;
-};
-
 const Stat = ({ label, value }) => (
   <View style={styles.statItem}>
-    <Text fontWeight="bold" style={styles.statValue}>
-      {value}
-    </Text>
+    <Text fontWeight="bold">{value}</Text>
     <Text color="textSecondary">{label}</Text>
   </View>
 );
 
-const RepositoryItem = ({ item }) => {
+const RepositoryItem = ({ item, showGitHubButton = false }) => {
+  const openGitHub = async () => {
+    await Linking.openURL(item.url);
+  };
+
   return (
     <View testID="repositoryItem" style={styles.container}>
       <View style={styles.topRow}>
         <Image style={styles.avatar} source={{ uri: item.ownerAvatarUrl }} />
-
         <View style={styles.info}>
-          <Text fontWeight="bold" fontSize="subheading" style={styles.fullName}>
+          <Text fontWeight="bold" fontSize="subheading">
             {item.fullName}
           </Text>
-
-          <Text color="textSecondary" style={styles.description}>
-            {item.description}
-          </Text>
-
-          <View style={styles.languagePill}>
-            <Text fontWeight="bold" style={styles.languageText}>
-              {item.language}
-            </Text>
-          </View>
+          <Text color="textSecondary">{item.description}</Text>
+          <Text style={styles.languageTag}>{item.language}</Text>
         </View>
       </View>
 
@@ -92,6 +83,14 @@ const RepositoryItem = ({ item }) => {
         <Stat label="Reviews" value={String(item.reviewCount)} />
         <Stat label="Rating" value={String(item.ratingAverage)} />
       </View>
+
+      {showGitHubButton && (
+        <Pressable style={styles.button} onPress={openGitHub}>
+          <Text fontWeight="bold" style={styles.buttonText}>
+            Open in GitHub
+          </Text>
+        </Pressable>
+      )}
     </View>
   );
 };
