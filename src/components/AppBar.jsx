@@ -27,33 +27,25 @@ const AppBar = () => {
     fetchPolicy: "cache-and-network",
   });
 
-  console.log("ME DATA:", data?.me);
-
   const signedIn = Boolean(data?.me);
 
   const signOut = async () => {
     await authStorage.removeAccessToken();
     await apolloClient.resetStore();
-
-    const token = await authStorage.getAccessToken();
-    console.log("TOKEN AFTER SIGN OUT:", token);
-
     navigate("/");
   };
 
   return (
     <View style={styles.container}>
-      <ScrollView
-        horizontal
-        contentContainerStyle={styles.scrollContainer}
-        showsHorizontalScrollIndicator={false}
-      >
-        <AppBarTab label="Repositories" to="/" />
-
+      <ScrollView horizontal contentContainerStyle={styles.scrollContainer}>
+        <AppBarTab text="Repositories" linkTo="/" />
         {signedIn ? (
-          <AppBarTab label="Sign out" onPress={signOut} />
+          <>
+            <AppBarTab text="Create a review" linkTo="/create-review" />
+            <AppBarTab text="Sign out" onPress={signOut} />
+          </>
         ) : (
-          <AppBarTab label="Sign in" to="/signin" />
+          <AppBarTab text="Sign in" linkTo="/signin" />
         )}
       </ScrollView>
     </View>

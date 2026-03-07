@@ -76,8 +76,25 @@
 
 ### Tehtävä 10.19
 
-- lisätty yksittäisen repositorion näkymä (SingleRepository)
-- GET_REPOSITORY hakee repositorion id:n perusteella
-- useRepository-hook yksittäisen repositorion hakemiseen
-- Open in GitHub -painike
-- navigointi routeen /repository/:id
+    - lisätty yksittäisen repositorion näkymä (SingleRepository)
+    - GET_REPOSITORY hakee repositorion id:n perusteella
+    - useRepository-hook yksittäisen repositorion hakemiseen
+    - Open in GitHub -painike
+    - navigointi routeen /repository/:id
+
+### Tehtävä 10.20
+
+    - reviewt single repository -näkymä
+    - GET_REPOSITORY hakee myös reviewt
+    - FlatList-lista
+    - repositorion tiedot listan headerissa
+    - reviewlle käyttäjä, päivämäärä ja rating
+
+### Tehtävä 10.21
+
+    - review-lomake Formikilla
+    - owner name, repository name, rating ja review -kentät
+    - Yup-validointi
+    - createReview-mutation
+    - submit navigoi repositorion näkymään
+    - Create a review -välilehti kirjautuneelle käyttäjälle
