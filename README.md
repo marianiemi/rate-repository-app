@@ -98,3 +98,18 @@
     - createReview-mutation
     - submit navigoi repositorion näkymään
     - Create a review -välilehti kirjautuneelle käyttäjälle
+
+### Tehtävä 10.22
+
+    - lisätty sign up -lomake Formikilla
+    - username, password ja password confirmation
+    - Yup-validointi
+    - createUser-mutation
+    - automaattinen kirjautuminen rekisteröinnin jälkeen
+    - Sign up näkyy vain uloskirjautuneelle
+
+### Tehtävä 10.23
+
+    - repositoriolistan lajittelu
+    - alasvetovalikosta latest, highest rated ja lowest rated
+    - listan järjestäminen ratingAverage-arvon mukaan
