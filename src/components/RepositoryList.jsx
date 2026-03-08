@@ -1,9 +1,18 @@
-import { useMemo, useState } from "react";
-import { FlatList, View, StyleSheet, Pressable, Platform } from "react-native";
+import React, { useMemo, useState } from "react";
+import {
+  FlatList,
+  View,
+  StyleSheet,
+  Pressable,
+  Platform,
+  TextInput,
+} from "react-native";
 import { useNavigate } from "react-router-native";
 import { Picker } from "@react-native-picker/picker";
+import { useDebounce } from "use-debounce";
 
 import RepositoryItem from "./RepositoryItem";
+import Text from "./Text";
 import useRepositories from "../hooks/useRepositories";
 import theme from "../theme";
 
@@ -14,6 +23,14 @@ const styles = StyleSheet.create({
   headerContainer: {
     padding: 10,
     backgroundColor: theme.colors.mainBackground,
+  },
+  searchInput: {
+    backgroundColor: theme.colors.itemBackground,
+    borderWidth: 1,
+    borderColor: "#d0d7de",
+    padding: 12,
+    borderRadius: 6,
+    marginBottom: 10,
   },
   pickerWrapper: {
     backgroundColor: theme.colors.itemBackground,
@@ -37,8 +54,19 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-const RepositoryListHeader = ({ selectedOrder, setSelectedOrder }) => (
+const RepositoryListHeader = ({
+  selectedOrder,
+  setSelectedOrder,
+  searchKeyword,
+  setSearchKeyword,
+}) => (
   <View style={styles.headerContainer}>
+    <TextInput
+      style={styles.searchInput}
+      placeholder="Search repositories"
+      value={searchKeyword}
+      onChangeText={setSearchKeyword}
+    />
     <View style={styles.pickerWrapper}>
       <Picker
         selectedValue={selectedOrder}
@@ -55,53 +83,74 @@ const RepositoryListHeader = ({ selectedOrder, setSelectedOrder }) => (
   </View>
 );
 
-export const RepositoryListContainer = ({
-  repositories,
-  onItemPress,
-  selectedOrder,
-  setSelectedOrder,
-}) => {
-  const repositoryNodes = useMemo(() => {
-    const nodes = repositories
+export class RepositoryListContainer extends React.Component {
+  renderHeader = () => {
+    const { selectedOrder, setSelectedOrder, searchKeyword, setSearchKeyword } =
+      this.props;
+
+    return (
+      <RepositoryListHeader
+        selectedOrder={selectedOrder}
+        setSelectedOrder={setSelectedOrder}
+        searchKeyword={searchKeyword}
+        setSearchKeyword={setSearchKeyword}
+      />
+    );
+  };
+
+  render() {
+    const { repositories, onItemPress } = this.props;
+
+    const repositoryNodes = repositories
       ? repositories.edges.map((edge) => edge.node)
       : [];
 
-    if (selectedOrder === "highestRated") {
-      return [...nodes].sort((a, b) => b.ratingAverage - a.ratingAverage);
-    }
-
-    if (selectedOrder === "lowestRated") {
-      return [...nodes].sort((a, b) => a.ratingAverage - b.ratingAverage);
-    }
-
-    return nodes;
-  }, [repositories, selectedOrder]);
-
-  return (
-    <FlatList
-      data={repositoryNodes}
-      extraData={selectedOrder}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => (
-        <Pressable onPress={() => onItemPress(item.id)}>
-          <RepositoryItem item={item} />
-        </Pressable>
-      )}
-      ItemSeparatorComponent={ItemSeparator}
-      ListHeaderComponent={
-        <RepositoryListHeader
-          selectedOrder={selectedOrder}
-          setSelectedOrder={setSelectedOrder}
-        />
-      }
-    />
-  );
-};
+    return (
+      <FlatList
+        data={repositoryNodes}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Pressable onPress={() => onItemPress(item.id)}>
+            <RepositoryItem item={item} />
+          </Pressable>
+        )}
+        ItemSeparatorComponent={ItemSeparator}
+        ListHeaderComponent={this.renderHeader}
+      />
+    );
+  }
+}
 
 const RepositoryList = () => {
   const navigate = useNavigate();
   const [selectedOrder, setSelectedOrder] = useState("latest");
-  const { repositories } = useRepositories();
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [debouncedSearchKeyword] = useDebounce(searchKeyword, 500);
+
+  const variables = useMemo(() => {
+    switch (selectedOrder) {
+      case "highestRated":
+        return {
+          orderBy: "RATING_AVERAGE",
+          orderDirection: "DESC",
+          searchKeyword: debouncedSearchKeyword,
+        };
+      case "lowestRated":
+        return {
+          orderBy: "RATING_AVERAGE",
+          orderDirection: "ASC",
+          searchKeyword: debouncedSearchKeyword,
+        };
+      default:
+        return {
+          orderBy: "CREATED_AT",
+          orderDirection: "DESC",
+          searchKeyword: debouncedSearchKeyword,
+        };
+    }
+  }, [selectedOrder, debouncedSearchKeyword]);
+
+  const { repositories } = useRepositories(variables);
 
   const onItemPress = (id) => {
     navigate(`/repository/${id}`);
@@ -113,6 +162,8 @@ const RepositoryList = () => {
       onItemPress={onItemPress}
       selectedOrder={selectedOrder}
       setSelectedOrder={setSelectedOrder}
+      searchKeyword={searchKeyword}
+      setSearchKeyword={setSearchKeyword}
     />
   );
 };

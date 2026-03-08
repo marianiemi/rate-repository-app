@@ -101,7 +101,7 @@
 
 ### Tehtävä 10.22
 
-    - lisätty sign up -lomake Formikilla
+    - sign up -lomake Formikilla
     - username, password ja password confirmation
     - Yup-validointi
     - createUser-mutation
@@ -113,3 +113,21 @@
     - repositoriolistan lajittelu
     - alasvetovalikosta latest, highest rated ja lowest rated
     - listan järjestäminen ratingAverage-arvon mukaan
+
+### Tehtävä 10.24
+
+    - repositoriolistan hakukenttä
+    - haku käyttää searchKeyword-parametria
+    - syöte debouncataan use-debounce-kirjastolla
+    - hakukenttä ja lajittelu listan headerissa
+
+### Tehtävä 10.25
+
+    - My reviews -välilehti kirjautuneelle käyttäjälle
+    - reviewt haetaan me-querylla
+    - reviewta painamalla siirtyy repositorion sivulle
+
+## Tekoälyn käyttö
+
+Tämän harjoitustyön tekemisen tukena on käytetty tekoälytyökaluja (ChatGPT, Copilot).
+Tekoälyä on hyödynnetty erityisesti virhetilanteiden ja ongelmien selvittämisessä sekä rakenteiden tarkistamisessa ja koodin siistimisessä.
